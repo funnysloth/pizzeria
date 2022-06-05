@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Piiza4life</title>
+    <link rel="icon" type="image/x-icon" href="../../static/icons/favicon.ico">
+    <link type="text/css" href="../../static/css/style.css" rel="stylesheet"/>
+    <link type="text/css" href="../../static/css/button.css" rel="stylesheet"/>
+    <link type="text/css" href="../../static/css/cart.css" rel="stylesheet"/>
+    <link type="text/css" href="../../static/css/table.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <div class="main-content-container">
+        <div class="header-container no-nav-header">
+            <header class="header container" id="sticky-header">
+                <a href="/" class="nav-link logo justify-center"><h1 id='logo_text' class="h1">Pizza<span>4</span>life</h1></a>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a th:if="${user==null}" th:href="@{/login}" class="nav-link login-link px-2 my-1">Увійти</a>
+                        <div class="dropdown" th:if="${user!=null}">
+                            <a th:if="${user.userRole.contains('admin')}" href="" class="nav-link login-link px-2 my-1 dropdown-toggle"
+                               id="dropdownAdmin" data-bs-toggle="dropdown">Адмін</a>
+                            <ul  class="dropdown-menu" labelledby="dropdownAdmin">
+                                <a class="account-link" th:href="@{/products(page=1)}"><li class="dropdown-item">Продукти</li></a>
+                                <a class="account-link" th:href="@{/users(page=1, role='admin')}"><li class="dropdown-item">Адміністратори</li></a>
+                                <a class="account-link" th:href="@{/users(page=1, role='operator')}"><li class="dropdown-item">Оператори</li></a>
+                            </ul>
+                            </a>
+                            <a th:href="@{/}" class="nav-link login-link px-2 my-1 dropdown-toggle" id="dropdownUser"
+                               data-bs-toggle="dropdown" >МІй акаунт</a>
+                            <ul class="dropdown-menu" labelledby="dropdownUser">
+                                <a class="account-link" th:href="@{/user/account}"><li class="dropdown-item">Редагувати свої дані</li></a>
+                                <a class="account-link" th:href="@{/user/my_orders}"><li class="dropdown-item">Мої замовлення</li></a>
+                                <a class="account-link" th:href="@{/logout}"><li class="dropdown-item">Вийти</li></a>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item "><a th:href="@{/cart}" class="nav-link link-dark px-2">
+                        <img src="../../static/icons/basket3.svg" id="cart-img" alt="cart" height="23px">
+                        <p id="cart-quantity"></p>
+                    </a></li>
+                </ul>
+            </header>
+        </div>
+        <div class="container container-main">
+            <h4 class="h4">Продукти</h4>
+            <div class="add-btn-container">
+                <a th:href="@{/products/add}"><button class="add-btn">Додати продукт</button></a>
+            </div>
+            <div class="products-container" >
+                <div class="filter-container">
+                    <form class="filter-form" th:action="@{/products/filter}" method="get">
+                        <input type="number" name="page" value="1" hidden>
+                        <select class="filter-select filter-element" name="category" id="category">
+                            <option value="none">Виберіть категорію</option>
+                            <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+                        </select>
+                        <select class="filter-select filter-element" name="status" id="status">
+                            <option value="none">Виберіть стан</option>
+                            <option value="shown">Показується</option>
+                            <option value="hidden">Прихований</option>
+                        </select>
+                        <button class="filter-button" type="submit" value="filter">Фільтрувати</button>
+                    </form>
+                    <form class="search-form" th:action="@{/products/search}" method="get">
+                        <input type="number" name="page" value="1" hidden>
+                        <input type="search" name="search" class="search-input" placeholder="Введіть запит...">
+                        <button class="filter-button" type="submit" value="search" th:value="${search}">Пошук</button>
+                    </form>
+                </div>
+                <table class="products-table">
+                    <tr>
+                        <th>№</th>
+                        <th>Назва</th>
+                        <th>Категорія</th>
+                        <th>Вага (г)</th>
+                        <th>Ціна (грн)</th>
+                        <th>Опис</th>
+                    </tr>
+                    <tr th:if="${dishes.size == 0}">
+                        <td colspan="6">Продуктів не знайдено</td>
+                    </tr>
+                    <tr th:each="dish: ${dishes}">
+                        <td class="count">
+
+                        </td>
+                        <td>
+                            <a class="dish-link" th:href="@{/products/edit(id=${dish.id})}"><p th:text="${dish.dishName}"></p></a>
+                        </td>
+                        <td>
+                            <p th:text="${categoryService.getById(dish.categoryId).categoryName}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${dish.weight}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${dish.price}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${dish.description}"></p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div >
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li th:if="${!filter}" class="page-item" th:each="page: ${pages}"><a class="page-link" th:if="${pages.size()}>1"
+                                                                          th:href="@{/products(page=${page})}" th:text="${page}"></a></li>
+                        <li th:if="${filter}" class="page-item" th:each="page: ${pages}"><a class="page-link" th:if="${pages.size()}>1"
+                                                                            th:href="@{/products/filter(page=${page}, category=${category},
+                                                                            status=${status})}" th:text="${page}"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <ul class="footer-nav">
+                <li><a th:href="@{/}" class="footer-link">Меню</a></li>
+                <li><a th:href="@{/about}" class="footer-link">Про нас</a></li>
+                <li><a th:href="@{/contacts}" class="footer-link">Контакти</a></li>
+            </ul>
+            <div class="footer-company">
+                <p>© 2022 Pizza4Life</p>
+            </div>
+        </div>
+    </footer>
+    <div id="back-to-top-btn"></div>
+    <script type="text/javascript" src="../../static/js/js.cookie.min.js"></script>
+    <script type="text/javascript" src="../../static/js/shopping.cart.js"></script>
+    <script type="text/javascript" src="../../static/js/admin.js"></script>
+    <script type="text/javascript" src="../../static/js/no.nav.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

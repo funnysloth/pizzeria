@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Piiza4life</title>
+    <link rel="icon" type="image/x-icon" href="../../static/icons/favicon.ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" href="../../static/css/style.css" rel="stylesheet"/>
+    <link type="text/css" href="../../static/css/order.css" rel="stylesheet"/>
+    <link type="text/css" href="../../static/css/form.css" rel="stylesheet"/>
+    <link type="text/css" href="../../static/css/table.css" rel="stylesheet"/>
+    <link type="text/css" href="../../static/css/cart.css" rel="stylesheet"/>
+    <link type="text/css" href="../../static/css/button.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <div class="main-content-container">
+        <div class="header-container no-nav-header">
+            <header class="header container" id="sticky-header">
+                <a href="/" class="nav-link logo justify-center"><h1 id='logo_text' class="h1">Pizza<span>4</span>life</h1></a>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a th:if="${user==null}" th:href="@{/login}" class="nav-link login-link px-2 my-1">Увійти</a>
+                        <div class="dropdown" th:if="${user!=null}">
+                            <a th:if="${user.userRole.contains('operator')}" th:href="@{/orders(page=1)}" class="nav-link login-link px-2 my-1">Замовлення</a>
+                            <a th:href="@{/}" class="nav-link login-link px-2 my-1 dropdown-toggle " id="dropdownUser"
+                               data-bs-toggle="dropdown">МІй акаунт</a>
+                            <ul class="dropdown-menu" labelledby="dropdownUser">
+                                <a class="account-link" th:href="@{/user/account}"><li class="dropdown-item">Редагувати свої дані</li></a>
+                                <a class="account-link" th:href="@{/user/my_orders}"><li class="dropdown-item">Мої замовлення</li></a>
+                                <a class="account-link" th:href="@{/logout}"><li class="dropdown-item">Вийти</li></a>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item "><a th:href="@{/cart}" class="nav-link link-dark px-2">
+                        <img src="../../static/icons/basket3.svg" id="cart-img" alt="cart" height="23px">
+                        <p id="cart-quantity"></p>
+                    </a></li>
+                </ul>
+            </header>
+        </div>
+        <div class="container container-main">
+            <h4 class="h4">Дані замовлення</h4>
+            <div class="container order-container">
+                <div class="order-info-conеainer">
+                    <h5 class="h5">Контакти</h5>
+                    <div class="input-container">
+                        <label class="input">
+                            Ім'я
+                            <input type="text" th:value="${orderInformation.order.fullName}" class="textbar" readonly>
+                        </label>
+                        <label class="input">
+                            Номер телефону
+                            <input type="text" th:value="${orderInformation.order.phoneNumber}" class="textbar" readonly>
+                        </label>
+                        <label class="input">
+                            Email
+                            <input type="text" th:value="${orderInformation.order.email}" class="textbar" readonly>
+                        </label>
+                    </div>
+                    <h5 class="h5">Адреса</h5>
+                    <div class="input-container">
+                        <label class="input">
+                            Вулиця
+                            <input type="text" name="street" th:value="${address[0]}" class="textbar" readonly>
+                        </label>
+                        <label class="input">
+                            Будинок
+                            <input type="text" name="house"  th:value="${address[1]}" class="textbar" readonly>
+                        </label>
+                        <label th:if="${address.length >= 3}" class="input">
+                            Під'їзд
+                            <input type="text" name="entrance" th:value="${address[2]}" class="textbar" readonly>
+                        </label>
+                        <label th:if="${address.length >= 4}" class="input">
+                            Квартира
+                            <input type="text" name="apartment" th:value="${address[3]}" class="textbar" readonly>
+                        </label>
+                        <label th:if="${address.length >= 5}" class="input">
+                            Код
+                            <input type="text" name="code" th:value="${address[4]}" class="textbar" readonly>
+                        </label>
+                    </div>
+                    <div class="input-container" th:if="${orderInformation.order.comment.length() > 0}">
+                        <label class="input">
+                            Коментар
+                            <textarea cols="60" rows="4" name="comment" class="comment" th:text="${orderInformation.order.comment}" readonly></textarea>
+                        </label>
+                    </div>
+                    <div class="input-container payment-container">
+                        <label class="input">
+                            Тип оплати
+                            <input type="text" name="payment" th:value="${orderInformation.order.payment}" class="textbar" readonly>
+                        </label>
+                        <label th:if="${orderInformation.order.payment.contains('готівкою')}" class="input change">
+                            Решта з
+                            <input type="text" name="change" th:value="${orderInformation.order.change}" class="textbar change-field" readonly>
+                        </label>
+                    </div>
+                    <div class="input-container payment-container">
+                        <label class="input">
+                            Час замовлення
+                            <input type="text" name="orderDate" th:value="${orderInformation.order.getOrderDate()}" class="textbar" readonly>
+                        </label>
+                        <label class="input change">
+                            Статус
+                            <input type="text" name="status" th:value="${orderInformation.order.status}" class="textbar" readonly>
+                        </label>
+                    </div>
+                    <div th:each="dish: ${orderInformation.items}" class="cart-overall-container order-info">
+                        <table th:if="${dish.dish != null}" class="cart-overall" th:data-id="${dish.getDish().id}">
+                            <tr>
+                                <td class="img-cell">
+                                    <img th:src="${dish.getDish().picturePath}" class="img-dish" alt="pizza">
+                                </td>
+                                <td>
+                                    <h4 th:text="${dish.getDish().dishName}"></h4>
+                                    <p th:text="${dish.getDish().weight} + ' г'"></p>
+                                </td>
+                                <td>
+                                    <p th:text="${dish.getDish().description}"></p>
+                                </td>
+                                <td class="quantity-cell">
+                                    <div class="quantity">
+                                        <input type="text" class="quantity-input" name="number" th:value="${dish.quantity} + ' шт.'" readonly>
+                                    </div>
+                                </td>
+                                <td class="price">
+                                    <p th:text="${dish.sumPrice}"></p>грн
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div th:each="pizzaOfFour : ${orderInformation.pizzaOfFourItems}" class="cart-overall-container order-info">
+                        <table th:if="${orderInformation.pizzaOfFourItems.size() > 0}" class="cart-overall">
+                            <tr>
+                                <td class="img-cell">
+                                    <img src="../../static/images/pizza-of-four-image.png" class="img-dish" alt="pizza">
+                                </td>
+                                <td>
+                                    <h4>Піца з чотирьох частин</h4>
+                                </td>
+                                <td>
+                                    <p th:each="pizzaOfFourPart: ${pizzaOfFour.getDishes()}" th:text="'- ' + ${pizzaOfFourPart.dishName}"></p>
+                                </td>
+                                <td class="quantity-cell">
+                                    <div class="quantity">
+                                        <input type="text" class="quantity-input" name="number" th:value="${pizzaOfFour.quantity}  + ' шт.'" readonly>
+                                    </div>
+                                </td>
+                                <td class="price">
+                                    <p th:text="${pizzaOfFour.sumPrice}"></p>грн
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <h5 class="h5 total-price" th:text="'Сума: ' + ${orderInformation.order.price} + ' грн'"></h5>
+            <div th:if="${!orderInformation.order.status.contains('завершено')}" class="input-container edit-btn-container">
+                <a th:href="@{/orders/finish(id=${orderInformation.order.id})}">
+                    <button class="edit-btn" value="finish">Завершити</button>
+                </a>
+                <a th:href="@{/orders/cancel(id=${orderInformation.order.id})}">
+                    <button class="delete-btn" value="delete">Скасувати замовлення</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <ul class="footer-nav">
+                <li><a th:href="@{/}" class="footer-link">Меню</a></li>
+                <li><a th:href="@{/about}" class="footer-link">Про нас</a></li>
+                <li><a th:href="@{/contacts}" class="footer-link">Контакти</a></li>
+            </ul>
+            <div class="footer-company">
+                <p>© 2022 Pizza4Life</p>
+            </div>
+        </div>
+    </footer>
+    <div id="back-to-top-btn"></div>
+    <script type="text/javascript" src="../../static/js/js.cookie.min.js"></script>
+    <script type="text/javascript" src="../../static/js/order.js"></script>
+    <script type="text/javascript" src="../../static/js/admin.js"></script>
+    <script type="text/javascript" src="../../static/js/no.nav.js"></script>
+    <script type="text/javascript" src="../../static/js/shopping.cart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

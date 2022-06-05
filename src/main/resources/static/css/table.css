@@ -1,0 +1,100 @@
+.products-container, .users-container, .orders-container{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.orders-container{
+    margin-top: 1.3rem;
+}
+
+.products-table, .users-table, .orders-table{
+    text-align: center;
+    width: 100%;
+}
+
+.products-table th, .users-table th, .orders-table th{
+    background-color: #ff7b26;
+    color: white;
+    height: 4rem;
+}
+
+.products-table td,.products-table th, .users-table td, .users-table th, .orders-table td, .orders-table th{
+    border: thin solid #fff;
+    padding: 0.1rem 0.7rem;
+}
+
+.products-table td, .users-table td, .orders-table td{
+    background-color: #e3e3e3;
+    height: 3rem;
+    vertical-align: center;
+}
+
+td p {
+    margin-bottom: 0;
+}
+
+.filter-select, .search-input{
+    width: 180px;
+    border: thin solid #d6d4cd;
+    padding: 0.1rem 0.2rem;
+}
+
+.filter-select:hover, .search-input:hover{
+    border: thin solid #ff7b26;
+}
+
+.filter-select:focus, .search-input:focus{
+    outline: none;
+}
+
+.filter-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.filter-element{
+    margin-right: 0.3rem;
+}
+
+.filter-form, .search-form{
+    margin-bottom: 0.5rem;
+}
+
+.dish-link{
+    color: #FF6400;
+    text-decoration: none;
+}
+
+.dish-link:hover{
+    color: #000;
+}
+
+.dish-image{
+    border-radius: 5px;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.edit-btn-container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.add-btn-container{
+    text-align: center;
+}
+
+.date{
+    width: 120px;
+}
+
+.income{
+    font-size: 1.3rem;
+}
+
+.total-price{
+    padding-left: 12px;
+}

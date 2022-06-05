@@ -1,0 +1,32 @@
+.error-required{
+    font-size: 17px;
+    font-weight: 500;
+    text-align: center;
+}
+
+sub{
+    display: contents;
+    color: red;
+    font-weight: 700;
+}
+
+.order-container{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.input-container{
+    margin-left: 20px;
+}
+
+.order-btn-container{
+    text-align: center;
+}
+
+.change-hide{
+    display: none!important;
+}
+
+.order-info{
+    margin: 1rem 0!important;
+}
