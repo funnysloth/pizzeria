@@ -247,3 +247,42 @@ a.categories:hover, .login-link:hover{
 .current-page{
     background-color: #ffe3b3!important;
 }
+
+.share-container{
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.share-btn{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: rgb(44, 165, 224);
+    height: 2rem;
+    margin-right: 0.5rem;
+}
+
+.btn-fb{
+    background-color: rgb(24, 119, 242);
+}
+
+.share-btn img{
+    height: 2rem;
+}
+
+.share-text{
+    font-size: 18px;
+    margin-right: 1rem;
+    margin-bottom: 0;
+}
+
+.copy-link-btn{
+    border: 1px solid darkgrey;
+    padding: 0.3rem 0.5rem;
+    background-color: lightgrey;
+}
+
+.copy-link-btn:hover{
+    background-color: darkgrey;
+}
