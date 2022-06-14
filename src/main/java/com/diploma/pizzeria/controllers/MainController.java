@@ -1,8 +1,6 @@
 package com.diploma.pizzeria.controllers;
 
 import com.diploma.pizzeria.entities.Category;
-import com.diploma.pizzeria.entities.Item;
-import com.diploma.pizzeria.entities.User;
 import com.diploma.pizzeria.service.CategoriesService;
 import com.diploma.pizzeria.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class MainController {
@@ -40,7 +36,7 @@ public class MainController {
         Category categoryBeverages = categoriesService.getCategoryByCategoryEng("beverages");
         model.addAttribute("dishesPizza", dishService.getDishesByCategoryAndStatusPaging(categoryPizza.getId(),"shown", 0, 10));
         model.addAttribute("dishesBeverages", dishService.getDishesByCategoryAndStatusPaging(categoryBeverages.getId(), "shown", 0, 10));
-        return "home";
+        return "index";
     }
 
     @GetMapping("/about")
