@@ -21,4 +21,22 @@ $(document).ready(function($) {
         $(".fourth-part .not-selected").hide();
         $(".fourth-part").append("<p class='selected'>" + $("#fourth-part option:selected").val() + "</p>")
     }
+
+    $(".select-pizza").change(function () {
+        if(!$(".add-to-cart-pizza").prop("disabled")) {
+            let share = $(".share-container");
+            share.show();
+            let share_url = window.location.href;
+            share.css("display", "flex");
+            let first_dish = $("#first-part option:selected").data("id");
+            let second_dish = $("#second-part option:selected").data("id");
+            let third_dish = $("#third-part option:selected").data("id");
+            let fourth_dish = $("#fourth-part option:selected").data("id");
+            let url = share_url + "pizzaOfFour=" + first_dish  + "," + second_dish
+                + "," + third_dish + "," + fourth_dish;
+            $(".share-tg").prop("href", "https://t.me/share/url?url=" + url);
+            $(".share-fb").prop("href", "https://www.facebook.com/sharer/sharer.php/url?url=" + url);
+            $(".share-twitter").prop("href", "https://twitter.com/intent/tweet?url=" + url);
+        }
+    })
 })
