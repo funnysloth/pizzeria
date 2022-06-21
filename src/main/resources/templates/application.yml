@@ -1,0 +1,26 @@
+spring:
+  main:
+    lazy-initialization: false
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    #    url: jdbc:postgresql://localhost:5433/Pizzeria
+    url: postgres://obgkmrokvcqnhj:0ee708a28d3fea7d6fe81c12e9e7c85e66d554b349eec689a32158fd34420a3a@ec2-54-228-218-84.eu-west-1.compute.amazonaws.com:5432/d3tatl1afe0vms
+    #    username: postgres
+    username: obgkmrokvcqnhj
+    #    password: '74553211'
+    password: '0ee708a28d3fea7d6fe81c12e9e7c85e66d554b349eec689a32158fd34420a3a'
+    driverClassName: org.postgresql.Driver
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  sql:
+    init:
+      platform: postgres
