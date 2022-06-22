@@ -216,33 +216,9 @@ $(".remove-from-cart").click(function () {
     shoppingCart.removeItemFromCartAll($(this).data("id"))
 })
 
-$(".select-pizza").change(function () {
-    if ($(this).val() === "none"){
-        $("." + $(this).attr("id") + " .not-selected").show();
-        $("." + $(this).attr("id") + " .selected").remove();
-    }else {
-        $("." + $(this).attr("id") + " .not-selected").hide();
-        $("." + $(this).attr("id")).append("<p class='selected'>" + $(this).val() + "</p>");
-    }
-    let firstPartPrice = parseInt($("#first-part option:selected").data("price"))/4;
-    let secondPartPrice = parseInt($("#second-part option:selected").data("price"))/4;
-    let thirdPartPrice = parseInt($("#third-part option:selected").data("price"))/4;
-    let fourthPartPrice = parseInt($("#fourth-part option:selected").data("price"))/4;
-    $(".pizza-of-four-price").text(parseInt(firstPartPrice + secondPartPrice + thirdPartPrice + fourthPartPrice));
-    if (firstPartPrice !== 0 && secondPartPrice !== 0 && thirdPartPrice !== 0 && fourthPartPrice !== 0){
-        $(".add-to-cart-pizza").prop("disabled", false);
-    }else{
-        $(".add-to-cart-pizza").prop("disabled", true);
-    }
-})
-
 $(".add-to-cart-pizza").click(function () {
     let id = $("#first-part option:selected").data("id") + " " + $("#second-part option:selected").data("id") + " " +
                 $("#third-part option:selected").data("id") + " " + $("#fourth-part option:selected").data("id");
     let price = $(".pizza-of-four-price").text();
     shoppingCart.addItemToCart(id, price, 1);
-})
-
-$(document).ready(function () {
-    $(".add-to-cart-pizza").prop("disabled", true);
 })
