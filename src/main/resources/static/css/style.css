@@ -1,6 +1,6 @@
 body{
     background-color: #f3f3f1!important;
-    background-image: url("../images/bg.png");
+    background-image: url("https://pizzeriabucket.s3.eu-central-1.amazonaws.com/static/images/bg.png");
     background-size: 100%;
 }
 

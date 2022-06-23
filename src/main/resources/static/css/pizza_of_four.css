@@ -4,7 +4,7 @@
 }
 
 .first-part{
-    background-image: url("../images/pizza-first-slice.png");
+    background-image: url("https://pizzeriabucket.s3.eu-central-1.amazonaws.com/static/images/pizza-first-slice.png");
     padding-left: 3rem;
     padding-top: 4.5rem;
     margin-right: 1.5rem;
@@ -12,21 +12,21 @@
 }
 
 .second-part{
-    background-image: url("../images/pizza-second-slice.png");
+    background-image: url("https://pizzeriabucket.s3.eu-central-1.amazonaws.com/static/images/pizza-second-slice.png");
     padding-right: 3rem;
     padding-top: 4.5rem;
     margin-bottom: 1.5rem;
 }
 
 .third-part{
-    background-image: url("../images/pizza-third-slice.png");
+    background-image: url("https://pizzeriabucket.s3.eu-central-1.amazonaws.com/static/images/pizza-third-slice.png");
     padding-left: 3rem;
     padding-bottom: 4.5rem;
     margin-right: 1.5rem;
 }
 
 .fourth-part{
-    background-image: url("../images/pizza-fourth-slice.png");
+    background-image: url("https://pizzeriabucket.s3.eu-central-1.amazonaws.com/static/images/pizza-fourth-slice.png");
     padding-right: 3rem;
     padding-bottom: 4.5rem;
 }
