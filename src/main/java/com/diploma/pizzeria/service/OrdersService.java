@@ -33,7 +33,7 @@ public class OrdersService {
 
     public void setPages(int pages) {
         this.pages.clear();
-        for (int i = 1; i <= pages; i++) {
+        for (int i = 1; i < pages; i++) {
             this.pages.add(i);
         }
     }
