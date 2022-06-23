@@ -25,7 +25,7 @@ public class DishController {
 
     private static DishService dishService;
     private static CategoriesService categoriesService;
-    private static final String UPLOAD_PATH = "C:\\Users\\1\\Desktop\\pizzeria\\pizzeria\\src\\main\\resources\\static\\dishImages\\";
+    private static final String UPLOAD_PATH = "https://pizzeria4life.herokuapp.com/static/dishImages/";
     private static final String PICTURE_PATH = "/static/dishImages/";
 
     @Autowired
