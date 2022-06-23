@@ -27,7 +27,7 @@ public class DishService {
 
     public void setPages(int pages) {
         this.pages.clear();
-        for (int i = 1; i < pages; i++) {
+        for (int i = 1; i <= pages; i++) {
             this.pages.add(i);
         }
     }
@@ -39,37 +39,37 @@ public class DishService {
 
     //defining pages to know how many to print in paging on a html page
     public List<Integer> definePageNumberForCategory(int categoryId, int pageSize){
-        float num = getDishesByCategory(categoryId).size()/(float)pageSize;
+        double num = Math.ceil(getDishesByCategory(categoryId).size()/(float)pageSize);
         int pagesNum;
-        for (pagesNum=0; pagesNum<=num; pagesNum++)
-            setPages(pagesNum+1);
+        for (pagesNum=1; pagesNum<=num; pagesNum++)
+            setPages(pagesNum);
         return getPages();
     }
 
     //defining pages to know how many to print in paging on a html page
     public List<Integer> definePageNumber(int pageSize){
-        float num = repository.findAll().size()/(float)pageSize;
+        double num = Math.ceil(repository.findAll().size()/(float)pageSize);
         int pagesNum;
-        for (pagesNum=0; pagesNum<=num; pagesNum++)
-            setPages(pagesNum+1);
+        for (pagesNum=1; pagesNum<=num; pagesNum++)
+            setPages(pagesNum);
         return getPages();
     }
 
     //defining pages to know how many to print in paging on a html page
     public List<Integer> definePageNumberForStatus(String status, int pageSize){
-        float num = getDishesByStatus(status).size()/(float)pageSize;
+        double num = Math.ceil(getDishesByStatus(status).size()/(float)pageSize);
         int pagesNum;
-        for (pagesNum=0; pagesNum<=num; pagesNum++)
-            setPages(pagesNum+1);
+        for (pagesNum=1; pagesNum<=num; pagesNum++)
+            setPages(pagesNum);
         return getPages();
     }
 
     //defining pages to know how many to print in paging on a html page
     public List<Integer> definePageNumberForCategoryAndStatus(int categoryId,  String status, int pageSize){
-        float num = getDishesByCategoryAndStatus(categoryId, status).size()/(float)pageSize;
+        double num = Math.ceil(getDishesByCategoryAndStatus(categoryId, status).size()/(float)pageSize);
         int pagesNum;
-        for (pagesNum=0; pagesNum<=num; pagesNum++)
-            setPages(pagesNum+1);
+        for (pagesNum=1; pagesNum<=num; pagesNum++)
+            setPages(pagesNum);
         return getPages();
     }
 
