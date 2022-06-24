@@ -62,6 +62,10 @@ public class LoginController {
             }
         }
         session.setAttribute("user", userService.getUserByEmail(email));
+        if (userService.getUserByEmail(email).getUserRole().contains("admin") || userService.getUserByEmail(email).getUserRole().contains("operator"))
+            session.setMaxInactiveInterval(24*60*60);
+        else
+            session.setMaxInactiveInterval(-1);
         return "redirect:/";
     }
 

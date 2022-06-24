@@ -64,6 +64,7 @@ public class RegistrationController {
         user.setUserRole("client");
         userService.saveUser(user);
         session.setAttribute("user", userService.getUserByEmail(user.getEmail()));
+        session.setMaxInactiveInterval(-1);
         return "redirect:/";
     }
 }
