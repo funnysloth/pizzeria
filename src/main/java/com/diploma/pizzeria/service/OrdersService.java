@@ -40,37 +40,37 @@ public class OrdersService {
 
     //defining pages to know how many to print in paging on a html page
     public List<Integer> definePageNumber(int pageSize){
-        float num = repository.findAll().size()/(float)pageSize;
+        double num = Math.ceil(repository.findAll().size()/(float)pageSize);
         int pagesNum;
-        for (pagesNum=0; pagesNum<=num; pagesNum++)
-            setPages(pagesNum+1);
+        for (pagesNum=1; pagesNum<=num; pagesNum++)
+            setPages(pagesNum);
         return getPages();
     }
 
     //defining pages to know how many to print in paging on a html page
     public List<Integer> definePageNumberForOrderDateBetween(int pageSize, Timestamp start, Timestamp end){
-        float num = getOrdersByOrderDateBetween(start, end).size()/(float)pageSize;
+        double num = Math.ceil(getOrdersByOrderDateBetween(start, end).size()/(float)pageSize);
         int pagesNum;
-        for (pagesNum=0; pagesNum<=num; pagesNum++)
-            setPages(pagesNum+1);
+        for (pagesNum=1; pagesNum<=num; pagesNum++)
+            setPages(pagesNum);
         return getPages();
     }
 
     //defining pages to know how many to print in paging on a html page
     public List<Integer> definePageNumberForOrderDateBefore(int pageSize, Timestamp end){
-        float num = getOrdersByOrderDateBefore(end).size()/(float)pageSize;
+        double num = Math.ceil(getOrdersByOrderDateBefore(end).size()/(float)pageSize);
         int pagesNum;
-        for (pagesNum=0; pagesNum<=num; pagesNum++)
-            setPages(pagesNum+1);
+        for (pagesNum=1; pagesNum<=num; pagesNum++)
+            setPages(pagesNum);
         return getPages();
     }
 
     //defining pages to know how many to print in paging on a html page
     public List<Integer> definePageNumberForOrderDateAfter(int pageSize, Timestamp start){
-        float num = getOrdersByOrderDateAfter(start).size()/(float)pageSize;
+        double num = Math.ceil(getOrdersByOrderDateAfter(start).size()/(float)pageSize);
         int pagesNum;
-        for (pagesNum=0; pagesNum<=num; pagesNum++)
-            setPages(pagesNum+1);
+        for (pagesNum=1; pagesNum<=num; pagesNum++)
+            setPages(pagesNum);
         return getPages();
     }
 
