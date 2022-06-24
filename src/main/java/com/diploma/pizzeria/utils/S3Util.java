@@ -2,6 +2,10 @@ package com.diploma.pizzeria.utils;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+<<<<<<< Updated upstream
+=======
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+>>>>>>> Stashed changes
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
@@ -16,6 +20,7 @@ public class S3Util {
 
     public static void uploadFile(String fileName, InputStream inputStream) throws IOException {
 
+<<<<<<< Updated upstream
         final AwsBasicCredentials awsBasicCredentials =
                 AwsBasicCredentials.create("AKIASTAWVD2CYP74AVVH", "tOYobSWlC7v/J+mQ5a0vWYoAMKHTyA8K1HJUtKaN");
         final StaticCredentialsProvider credentialsProvider = StaticCredentialsProvider.create(awsBasicCredentials);
@@ -27,6 +32,15 @@ public class S3Util {
 
         PutObjectRequest request = PutObjectRequest.builder()
                 .bucket("pizzeriabucket")
+=======
+        S3Client client = S3Client.builder()
+                .region(Region.EU_CENTRAL_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
+
+        PutObjectRequest request = PutObjectRequest.builder()
+                .bucket("pizzeria-dish-images")
+>>>>>>> Stashed changes
                 .acl(ObjectCannedACL.PUBLIC_READ)
                 .key(fileName)
                 .build();
