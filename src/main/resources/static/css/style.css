@@ -1,6 +1,6 @@
 body{
     background-color: #f3f3f1!important;
-    background-image: url("../images/bg.png");
+    background-image: url("https://pizzeriabucket.s3.eu-central-1.amazonaws.com/static/images/bg.png");
     background-size: 100%;
 }
 
@@ -64,6 +64,12 @@ h5.h5{
 
 a.categories:hover, .login-link:hover{
     color: #ff7b26!important;
+}
+
+.navbar-light .navbar-toggler{
+    color: rgba(0,0,0,.75)!important;
+    padding-left: 8rem!important;
+    margin-top: -5rem!important;
 }
 
 .dish{

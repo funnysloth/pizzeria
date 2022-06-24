@@ -5,6 +5,7 @@ import com.diploma.pizzeria.entities.User;
 import com.diploma.pizzeria.entities.Validation;
 import com.diploma.pizzeria.service.CategoriesService;
 import com.diploma.pizzeria.service.DishService;
+import com.diploma.pizzeria.utils.S3Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +26,7 @@ public class DishController {
 
     private static DishService dishService;
     private static CategoriesService categoriesService;
-    private static final String UPLOAD_PATH = "C:\\Users\\1\\Desktop\\pizzeria\\pizzeria\\src\\main\\resources\\static\\dishImages\\";
-    private static final String PICTURE_PATH = "/static/dishImages/";
+    private static final String UPLOAD_URL = "https://pizzeria-dish-images.s3.eu-central-1.amazonaws.com/";
 
     @Autowired
     public void setService(DishService service) {
@@ -144,13 +144,12 @@ public class DishController {
                     return "admin/edit_product";
                 }
                 if (!file.isEmpty()) {
+                    String fileName = file.getOriginalFilename();
                     try {
-                        byte[] bytes = file.getBytes();
-                        Path path = Paths.get(UPLOAD_PATH + file.getOriginalFilename());
-                        Files.write(path, bytes);
-                        dish.setPicturePath(PICTURE_PATH + file.getOriginalFilename());
+                        S3Util.uploadFile(fileName, file.getInputStream());
+                        dish.setPicturePath(UPLOAD_URL + fileName);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        throw new RuntimeException(e);
                     }
                 }
                 dish.setDishName(dishName);
@@ -177,7 +176,7 @@ public class DishController {
 
     @PostMapping("/products/add")
     public String addProduct(@ModelAttribute Dish dish, @RequestParam("file") MultipartFile file, @RequestParam("category") int category,
-                             HttpSession session, Model model){
+                             HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user == null || !user.getUserRole().contains("admin"))
             return "redirect:/";
@@ -197,13 +196,14 @@ public class DishController {
             model.addAttribute("dish", new Dish());
             return "admin/add_product";
         }
-        try {
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOAD_PATH + file.getOriginalFilename());
-            Files.write(path, bytes);
-            dish.setPicturePath(PICTURE_PATH + file.getOriginalFilename());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!file.isEmpty()){
+            String fileName = file.getOriginalFilename();
+            try {
+                S3Util.uploadFile(fileName, file.getInputStream());
+                dish.setPicturePath(UPLOAD_URL + fileName);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         dish.setStatus("shown");
         dish.setCategoryId(category);
