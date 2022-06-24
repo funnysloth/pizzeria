@@ -79,28 +79,28 @@
                    <select name="dish" id="first-part" class="select-pizza textbar" >
                        <option value="none" th:data-price="0">Виберіть піцу...</option>
                        <option th:each="dish: ${dishesPizza}" th:value="${dish.dishName}" th:data-price="${dish.price}" th:data-id="${dish.id}"
-                               th:text="${dish.dishName} + ' (' + ${dish.description} + ')'"></option>
+                               th:data-picture="${dish.picturePath}" th:text="${dish.dishName} + ' (' + ${dish.description} + ')'"></option>
                    </select>
                </label>
                <label class="input">Виберіть другу частину піци
                    <select name="dish" id="second-part" class="select-pizza textbar">
                        <option value="none" th:data-price="0">Виберіть піцу...</option>
                        <option th:each="dish: ${dishesPizza}" th:value="${dish.dishName}" th:data-price="${dish.price}" th:data-id="${dish.id}"
-                               th:text="${dish.dishName} + ' (' + ${dish.description} +')'"></option>
+                               th:data-picture="${dish.picturePath}" th:text="${dish.dishName} + ' (' + ${dish.description} +')'"></option>
                    </select>
                </label>
                <label class="input">Виберіть третю частину піци
                    <select name="dish" id="third-part" class="select-pizza textbar">
                        <option value="none" th:data-price="0">Виберіть піцу...</option>
                        <option th:each="dish: ${dishesPizza}" th:value="${dish.dishName}" th:data-price="${dish.price}" th:data-id="${dish.id}"
-                               th:text="${dish.dishName} + ' (' + ${dish.description} +')'"></option>
+                               th:data-picture="${dish.picturePath}" th:text="${dish.dishName} + ' (' + ${dish.description} +')'"></option>
                    </select>
                </label>
                <label class="input">Виберіть четверту частину піци
                    <select name="dish" id="fourth-part" class="select-pizza textbar">
                        <option value="none" th:data-price="0">Виберіть піцу...</option>
                        <option th:each="dish: ${dishesPizza}" th:value="${dish.dishName}" th:data-price="${dish.price}" th:data-id="${dish.id}"
-                               th:text="${dish.dishName} + ' (' + ${dish.description} +')'"></option>
+                               th:data-picture="${dish.picturePath}" th:text="${dish.dishName} + ' (' + ${dish.description} +')'"></option>
                    </select>
                </label>
            </div>

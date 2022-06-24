@@ -38,7 +38,7 @@ public class PizzaOfFourController {
         model.addAttribute("title", "Головна сторінка");
         model.addAttribute("categories", categoriesService.getAllCategories());
         Category categoryPizza = categoriesService.getCategoryByCategoryEng("pizza");
-        model.addAttribute("dishesPizza", dishService.getDishesByCategory(categoryPizza.getId()));
+        model.addAttribute("dishesPizza", dishService.getDishesByCategoryAndStatus(categoryPizza.getId(), "shown"));
         return "pizza_of_four";
     }
 }
